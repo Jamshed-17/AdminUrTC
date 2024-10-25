@@ -1,5 +1,7 @@
 import telebot
 from telebot import types
+from BackEnd import pushing_message_to_admin
+import datetime
 
 # Подключаем бота через botAPI
 bot = telebot.TeleBot("7787740456:AAEnBGpQS9n1W1PQ4QlQdI8l40iN8eRzE-Q")
@@ -15,8 +17,8 @@ def start(message):
     bot.register_next_step_handler(message, new_question)
 
 def new_question(message):
-    if message.text == "J8d#jUd8an#njd8*ndksusiEVGENIIIIIY":
-        pass
+    if message.text == "J8d#jUd8an#njd8*ndksusi____EVGENIIIIIY":
+        pass #Админка
     elif message.text == "Создать заявку":
         markup_clear = types.ReplyKeyboardRemove()    
         bot.send_message(message.chat.id, text="В каком кабинете проблема?".format(message.from_user), reply_markup=markup_clear)
@@ -55,12 +57,15 @@ def go(message):
 def check_message(message):
     if message.text == "Да, отправить заявку":
         markup_clear = types.ReplyKeyboardRemove()
+        pushing_message_to_admin(str(kab), what, comment, message.chat.username, str(datetime.datetime.now()))
+        print(str(kab), what, comment, message.chat.username, str(datetime.datetime.now()))
         bot.send_message(message.chat.id, text="Ваша заявка отправлена".format(message.from_user),reply_markup=markup_clear)
-        bot.register_next_step_handler(message, push_message)
     else:
         start(message)
         
-def push_message():
+def push_message(message):
+    print(str(kab), str(what), str(comment), str(message.chat.id), str(datetime.datetime.now()))
+    pushing_message_to_admin(str(kab), what, comment, message.chat.id, str(datetime.datetime))
     pass
     
 bot.infinity_polling()
