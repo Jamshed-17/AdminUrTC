@@ -9,7 +9,7 @@ bot = telebot.TeleBot("7787740456:AAEnBGpQS9n1W1PQ4QlQdI8l40iN8eRzE-Q")
 @bot.message_handler(commands=['start'])
 def start(message, first=True):
     #Начало работы бота, подключение админки
-    if message.chat.username == "Vongolasoxi":
+    if message.chat.username == "Vongolasoxi": #Vongolasoxi - Женя
         global admin_id
         admin_id = message.chat.id
         #Подклюение администратора
