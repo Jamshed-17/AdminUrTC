@@ -4,12 +4,12 @@ import BackEnd
 import datetime
 
 # Подключаем бота через botAPI
-bot = telebot.TeleBot("7787740456:AAEnBGpQS9n1W1PQ4QlQdI8l40iN8eRzE-Q")
+bot = telebot.TeleBot("7136769737:AAEZhLglJIQtGr88HEjqUW8sfx2lYglVHAo") #7136769737:AAEZhLglJIQtGr88HEjqUW8sfx2lYglVHAo - test, 7787740456:AAEnBGpQS9n1W1PQ4QlQdI8l40iN8eRzE-Q - work
 
 @bot.message_handler(commands=['start'])
 def start(message, first=True):
     #Начало работы бота, подключение админки
-    if message.chat.username == "Vongolasoxi": #Vongolasoxi - Женя
+    if message.chat.username == "Jamshed17": #Vongolasoxi - Женя
         global admin_id
         admin_id = message.chat.id
         #Подклюение администратора
@@ -118,20 +118,15 @@ def continue_questions(message):
 @bot.callback_query_handler(func=lambda call: call.data == "give_quest")
 def given_quest_button(call: types.CallbackQuery):
     markup_clear = types.ReplyKeyboardRemove()
-    BackEnd.give_to_db(call.message.text[0])
-    bot.send_message(call.message.chat.id, text=f"Заявка под номером {call.message.text[0]} теперь имеет статус 'В процессе'")
+    BackEnd.give_to_db(call.message.text.split("\n")[0])
+    bot.send_message(call.message.chat.id, text=f"Заявка под номером {call.message.text.split("\n")[0]} теперь имеет статус 'В процессе'")
     
     
 @bot.callback_query_handler(func=lambda call: call.data == "complete_quest")
 def given_quest_button(call: types.CallbackQuery):
     markup_clear = types.ReplyKeyboardRemove()
-    BackEnd.complete_to_db(call.message.text[0])
-    bot.send_message(call.message.chat.id, text=f"Заявка под номером {call.message.text[0]} теперь имеет статус 'Выполнено'")
-
-@bot.message_handler(commands=["qwicrnlscphsvnjklnzcxjklridncvjfiaconrjcoipjpmxa"])
-def prank(message):
-    bot.send_message(admin_id, text=f"Востание роботов начинается СЕГОДНЯ!!".format(message.from_user))
-    start(message)
+    BackEnd.complete_to_db(call.message.text.split("\n")[0])
+    bot.send_message(call.message.chat.id, text=f"Заявка под номером {call.message.text.split("\n")[0]} теперь имеет статус 'Выполнено'")
         
 bot.infinity_polling()
 # Оставляем бота включённым
