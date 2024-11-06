@@ -4,12 +4,12 @@ import BackEnd
 import datetime
 
 # Подключаем бота через botAPI
-bot = telebot.TeleBot("7136769737:AAEZhLglJIQtGr88HEjqUW8sfx2lYglVHAo") #7136769737:AAEZhLglJIQtGr88HEjqUW8sfx2lYglVHAo - test, 7787740456:AAEnBGpQS9n1W1PQ4QlQdI8l40iN8eRzE-Q - work
+bot = telebot.TeleBot("7787740456:AAEnBGpQS9n1W1PQ4QlQdI8l40iN8eRzE-Q") #7136769737:AAEZhLglJIQtGr88HEjqUW8sfx2lYglVHAo - test, 7787740456:AAEnBGpQS9n1W1PQ4QlQdI8l40iN8eRzE-Q - work
 
 @bot.message_handler(commands=['start'])
 def start(message, first=True):
     #Начало работы бота, подключение админки
-    if message.chat.username == "Jamshed17": #Vongolasoxi - Женя
+    if message.chat.username == "Vongolasoxi": #Vongolasoxi - Женя
         global admin_id
         admin_id = message.chat.id
         #Подклюение администратора
