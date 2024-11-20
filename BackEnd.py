@@ -1,10 +1,12 @@
 import json
 import telebot
 from pathlib import Path
+import datetime
+
 
 path = Path('Data/DB.json')
 
-def pushing_message_to_admin(kab:str, what:str, comment:str,time:str, user:str="HAVENT_NICK_NAME:((("):
+def pushing_message_to_admin(kab:str, what:str, comment:str, user:str="HAVENT_NICK_NAME:((("):
     """Эта функция записывает аявку в базу данных
      Вид базы данных (JSON формат)
     {
@@ -29,7 +31,7 @@ def pushing_message_to_admin(kab:str, what:str, comment:str,time:str, user:str="
         "what": what,
         "comment": comment,
         "user": f"@{user}",
-        "time": time.split(".")[0],
+        "time": str(datetime.datetime.now()).split(".")[0],
         "status": "Отправлен"}  
     data.append(quest)
     path.write_text(json.dumps(data, ensure_ascii=False), encoding='utf-8')
@@ -57,7 +59,7 @@ def admin_questions_data(messages, bots, news:bool=False):
                     new_quests = f"{data[i]["ID"]}\nЗаявка от {data[i]["user"]}: \nВ кабинете {data[i]["kab"]} {data[i]["what"]}. \nКомментарий: {data[i]["comment"]}\nЗаявка отправлена в {data[i]["time"]}"
                     bots.send_message(messages.chat.id, text=f"{new_quests}".format(messages.from_user), reply_markup = markup)
     elif news == True:
-        new_quest = f"{data[-1]["ID"]} - новая заявка\nЗаявка от {data[-1]["user"]}: \nВ кабинете {data[-1]["kab"]} {data[-1]["what"]}. \nКомментарий: {data[-1]["comment"]}\nЗаявка отправлена в {data[-1]["time"].split(" ")[1]}, {data[-1]["time"].split(" ")[0]}"
+        new_quest = f"{data[-1]["ID"]}\n Новая заявка\nЗаявка от {data[-1]["user"]}: \nВ кабинете {data[-1]["kab"]} {data[-1]["what"]}. \nКомментарий: {data[-1]["comment"]}\nЗаявка отправлена в {data[-1]["time"].split(" ")[1]}, {data[-1]["time"].split(" ")[0]}"
         return new_quest
             
 def give_to_db(ID):
